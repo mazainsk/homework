@@ -7,3 +7,4 @@ mutable_list = ['Земля', 'Марс', 2024, 3.4]
 print('Mutable list:', mutable_list)
 mutable_list[0]="Луна"
 print('New mutable list:', mutable_list)
+
