@@ -1,16 +1,26 @@
-# intro
-print("Hello World!")
+# # intro
+# print("Hello World!")
+#
+# # 1st program
+# print(9 ** 0.5 * 5)
+#
+# # 2nd program
+# print(9.99 > 9.98 and 1000 != 1000.1)
+#
+# # 3rd program
+# print(2 * 2 + 2)
+# print(2 * (2 + 2))
+# print((2 * 2 + 2) == (2 * (2 + 2)))
+#
+# # 4th program
+# print(int(float('123.456') * 10) % 10 )
 
-# 1st program
-print(9 ** 0.5 * 5)
+print('Hi, PyCharm')
 
-# 2nd program
-print(9.99 > 9.98 and 1000 != 1000.1)
+x = 43
 
-# 3rd program
-print(2 * 2 + 2)
-print(2 * (2 + 2))
-print((2 * 2 + 2) == (2 * (2 + 2)))
+y = 32
 
-# 4th program
-print(int(float('123.456') * 10) % 10 )
+print(x * y)
+
+print("End line")
