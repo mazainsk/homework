@@ -16,17 +16,15 @@ print(result1)
 print(result2)
 print(result3)
 
-# Вариант 2 - без вложенного цикла и индексной переменной
+# Вариант 2 - без вложенного цикла и индексной переменной, но с проверкой на ноль и печатью из функции
 def get_matrix (n, m, value):
     matrix = []
-    for _ in range(n):
-        matrix.append([value] * m)
-    return matrix
+    if n and m:     # матрица будет заполняться значениями value только тогда, когда и n и m больше нуля
+        for _ in range(n):
+            matrix.append([value] * m)
+    print(matrix)
 
 # проверка алгоритма на конкретном примере исходных данных
-result1 = get_matrix(2, 2, 10)
-result2 = get_matrix(3, 5, 42)
-result3 = get_matrix(4, 2, 13)
-print(result1)
-print(result2)
-print(result3)
+get_matrix(2, 2, 10)
+get_matrix(3, 5, 42)
+get_matrix(4, 2, 13)
