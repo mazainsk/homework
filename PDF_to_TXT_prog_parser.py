@@ -1,4 +1,5 @@
 import fitz
+# Если нужный модуль отсутствует, нужно установить в терминале: pip install PyMuPDF
 
 pdf_document = 'd:\\!_Docs\\Учеба\\Python\\Большая_книга_проектов_Python_Свейгарт_Эл_Z_Library.pdf'
 output_file = 'd:\\!_Docs\\Учеба\\Python\\output.txt'
