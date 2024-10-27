@@ -1,3 +1,5 @@
+from idlelib.replace import replace
+
 import fitz
 # Если нужный модуль отсутствует, нужно установить в терминале: pip install PyMuPDF
 
@@ -30,5 +32,6 @@ with open(output_file, 'w', encoding='utf-8') as file:
     for i in range(len(prog_text)):
         file.writelines('# ' + '=' * 68 + '\n' + '# PROGRAM ' + str(i + 1) + '\n' + '# ' + '=' * 68 + '\n' * 2)
         for j in prog_text[i].values():
-            file.writelines(str(j) + '\n')
+            # при записи строки необходимо заменить неразрывные пробелы на обычные
+            file.writelines(str(j).replace(chr(160), chr(32)) + '\n')
         file.writelines('\n' * 2)
