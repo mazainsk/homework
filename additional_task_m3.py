@@ -16,13 +16,13 @@ data_structure = [
 def calculate_structure_sum(*data_):
     count_ = 0
     for i in data_:
-        if isinstance(i, int) or isinstance(i, bool):
+        if isinstance(i, (int, bool)):
             count_ += i             # Для int и bool берется его значение (True = 1, Bool = 0).
         elif isinstance(i, str):
             count_ += len(i)        # Для str считается количество символов в этой строке.
         elif isinstance(i, float):
             count_ += len(str(i))   # Для float считается кол-во символов в его строковом представлении.
-        elif isinstance(i, list) or isinstance(i, tuple) or isinstance(i, set):
+        elif isinstance(i, (list, tuple, set)):
             for j in i:
                 count_ += calculate_structure_sum(j)    # Рекурсивный вызов по каждому элементу коллекции.
         elif isinstance(i, dict):
