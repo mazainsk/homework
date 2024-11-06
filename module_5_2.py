@@ -1,8 +1,8 @@
 class House:
 
-    def __init__(self, name, number_of_floors):
-        self.name = str(name)
-        self.number_of_floors = int(number_of_floors)
+    def __init__(self, name: str, number_of_floors: int):
+        self.name = name
+        self.number_of_floors = number_of_floors
         print(f'Создано здание "{self.name}" с количеством этажей {self.number_of_floors}')
 
     def __len__(self):
