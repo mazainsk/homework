@@ -2,10 +2,10 @@
 class House:
 
     # п.2 - создание метода инициализации с передачей в него названия объекта и кол-ва этажей
-    def __init__(self, name, number_of_floors):
+    def __init__(self, name: str, number_of_floors: int):
         # п.3 - создание нужных атрибутов объекта
-        self.name = str(name)
-        self.number_of_floors = int(number_of_floors)
+        self.name = name
+        self.number_of_floors = number_of_floors
         print(f'Создано здание "{self.name}" с количеством этажей {self.number_of_floors}')
 
     # п.4 - создание метода перемещения на заданный этаж
