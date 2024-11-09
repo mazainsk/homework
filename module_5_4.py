@@ -8,14 +8,14 @@ class House:
         cls.houses_history.append(args[0])
         return object.__new__(cls)
 
-    def __del__(self):
-        print(f'"{self.name}" снесён, но он останется в истории: {House.houses_history}')
-
     def __init__(self, name: str, number_of_floors: int):
         self.name = name
         self.number_of_floors = number_of_floors
         print(f'Создано здание "{self.name}" с количеством этажей {self.number_of_floors}')
         print('Список истории строительства:', House.houses_history)
+
+    def __del__(self):
+        print(f'"{self.name}" снесён, но он останется в истории: {House.houses_history}')
 
     def __len__(self):
         return self.number_of_floors
