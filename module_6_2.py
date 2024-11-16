@@ -58,22 +58,22 @@ class Sedan(Vehicle):
 
 if __name__ == '__main__':
 
-# Проверка на тестовых данных
+    # Проверка на тестовых данных
 
-vehicle1 = Sedan('Fedos', 'Toyota Mark II', 500)        # Цвет будет выбран произвольно
-vehicle2 = Sedan('Patterson', 'Volvo S50', 340, 'white')
+    vehicle1 = Sedan('Fedos', 'Toyota Mark II', 500)        # Цвет будет выбран произвольно
+    vehicle2 = Sedan('Patterson', 'Volvo S50', 340, 'white')
 
-# Изначальные свойства
-vehicle1.print_info()
-vehicle2.print_info()
+    # Изначальные свойства
+    vehicle1.print_info()
+    vehicle2.print_info()
 
-# Меняем свойства (в т.ч. вызывая методы)
-vehicle1.set_color('Pink')      # поменяет
-vehicle1.set_color('BLACK')     # поменяет
-vehicle2.set_color('orange')    # должен выдать "Нельзя сменить"
-vehicle1.owner = 'Vasyok'
+    # Меняем свойства (в т.ч. вызывая методы)
+    vehicle1.set_color('Pink')      # поменяет
+    vehicle1.set_color('BLACK')     # поменяет
+    vehicle2.set_color('orange')    # должен выдать "Нельзя сменить"
+    vehicle1.owner = 'Vasyok'
 
-# Проверяем что поменялось
-vehicle1.print_info()
-vehicle2.print_info()   # если при попытке смены цвета на недопустимый orange (см.выше) ответили положительно на запрос
-                        # на перекраску, то должен выдать новый цвет из списка допустимых
+    # Проверяем что поменялось
+    vehicle1.print_info()
+    vehicle2.print_info()   # если при попытке смены цвета на недопустимый orange (см.выше) ответили положительно на запрос
+                            # на перекраску, то должен выдать новый цвет из списка допустимых
