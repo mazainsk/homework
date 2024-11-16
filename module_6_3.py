@@ -11,12 +11,13 @@ class Animal:
         self.speed = speed
 
     def move(self, dx, dy, dz):
-        if self._cords['z'] + dz * self.speed >= 0:
+        # погружение под воду (отрицательная Z) невозможно, если у объекта нет атрибута dive_in
+        if self._cords['z'] + dz * self.speed < 0 and not hasattr(self, 'dive_in'):
+            print('Слишком глубоко, я не могу нырять :(')
+        else:
             self._cords['x'] += dx * self.speed
             self._cords['y'] += dy * self.speed
             self._cords['z'] += dz * self.speed
-        else:
-            print('Слишком глубоко, я не могу нырять :(')
 
     def get_cords(self):
         print(f'X: {self._cords['x']}, Y: {self._cords['y']}, Z: {self._cords['z']}')
@@ -25,7 +26,7 @@ class Animal:
         print('Простите, я миролюбивый :)') if self._DEGREE_OF_DANGER < 5 else print('Осторожно, я атакую! 0_0')
 
     def speak(self):
-        print(self.sound)
+        print(self.__class__.__name__, ' издаёт звук "', self.sound, '"', sep='')
 
 class Bird(Animal):
     beak = True
@@ -46,7 +47,7 @@ class PoisonousAnimal(Animal):
     _DEGREE_OF_DANGER = 8
 
 class Duckbill(Bird, PoisonousAnimal, AquaticAnimal):
-    sound = "Click-click-click"
+    sound = "клик-клик-клик"
 
 
 if __name__ == '__main__':
@@ -56,19 +57,27 @@ if __name__ == '__main__':
     print(db.beak)
     db.speak()
     db.attack()
-    db.move(1, 2, 3)
+    db.move(1, 2, -3)   # погрузиться под воду сможет
     db.get_cords()
-    db.dive_in(6)
+    db.dive_in(4)
     db.get_cords()
     db.lay_eggs()
 
-    print(dir(db))
+    # объект без атрибута dive_in не сможет нырять
+    b1 = Bird(5)
+    b1.move(1,2,-3)     # погрузиться под воду не сможет
+    b1.get_cords()              # координаты останутся 0-0-0
+
+    print(dir(db))      # проверка наличия всех наследованных атрибутов и методов
 
     # Вывод на консоль:
     # True
     # True
-    # Click - click - click
+    # Duckbill издаёт звук "клик-клик-клик"
     # Осторожно, я атакую! 0_0
-    # X: 10, Y: 20, Z: 30
-    # X: 10, Y: 20, Z: 0
+    # X: 10, Y: 20, Z: -30
+    # X: 10, Y: 20, Z: -50
     # И вот я снесла <?> яйца для вас   (число яиц - от 1 до 4)
+    # Слишком глубоко, я не могу нырять :(
+    # X: 0, Y: 0, Z: 0
+    # <список методов и атрибутов>
