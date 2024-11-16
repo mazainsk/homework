@@ -6,7 +6,7 @@ class Animal:
         self.alive = True   # живой
         self.fed = False    # не накормлен, т.е. голодный
 
-    def __str__(self):
+    def __str__(self):      # как информация о себе
         text = f'Имя: {self.name}, Статус: '
         text += 'живой, ' if self.alive else 'мертвый, '
         text += 'сытый' if self.fed else 'голодный'
@@ -17,14 +17,17 @@ class Plant:
         self.name = name
         self.edible = False  # съедобность
 
-    def __str__(self):
+    def __str__(self):      # как информация о себе
         text = f'Имя: {self.name}, Статус: '
         text += 'съедобный' if self.edible else 'не съедобный'
         return text
 
 class Mammal(Animal):
-    def eat(self, food: Plant): # специально в параметре показываю, что еда должна быть класса Plant
-        if food.edible:
+    # Магический метод __init__ полностью определен в родительском классе, поэтому при определении дочерних классов
+    # он не нужен нигде, кроме Fruit (см.ниже)
+
+    def eat(self, food: Plant): # специально в параметре показываю, что "хорошая еда" должна быть класса Plant
+        if hasattr(food, 'edible') and food.edible: # задаю так, что травоядное ест только то, что съедобное
             print(f'{self.name} съел {food.name}')
             self.fed = True         # наелся
         else:
@@ -32,22 +35,22 @@ class Mammal(Animal):
             self.alive = False      # гибнет от несъедобного растения, т.к. не насытился
 
 class Predator(Animal):
-    def eat(self, food: Mammal):    # специально в параметре показываю, что еда должна быть класса Mammal
-        if hasattr(food, 'alive') and food.alive:
+    def eat(self, food: Mammal):    # специально в параметре показываю, что "хорошая еда" должна быть класса Mammal
+        if hasattr(food, 'alive') and food.alive:   # задаю так, что хищник ест только то, что живое
             print(f'{self.name} съел {food.name}')
             self.fed = True         # наелся
-            food.alive = False      # травоядное отдало жизнь в качестве еды
+            food.alive = False      # жизнь объекта, который съели, прекратилась
         else:
             print(f'{self.name} не стал есть {food.name}')
             self.alive = False      # гибнет от несъедобного мёртвого травоядного животного, т.к. не насытился
 
 class Flower(Plant):
-    pass        # просто заглушка, потому что все атрибуты и методы аналогичны родительскому классу
+    pass        # просто заглушка, потому что все атрибуты и методы определены в родительском классе
 
 class Fruit(Plant):
-    def __init__(self, name):
-        super().__init__(name)      # по условию задачи имя определено в родительском классе, поэтому так.
-        self.edible = True          # переопределить съедобность родительского класса
+    def __init__(self, name: str):
+        super().__init__(name)      # по условию задачи имя определяется через родительский класс
+        self.edible = True          # переопределить съедобность, унаследованную от родительского класса
 
 
 # Проверка на тестовых данных
