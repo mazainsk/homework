@@ -55,6 +55,9 @@ class Sedan(Vehicle):
         print(f'Вместимость: {self.__PASSENGERS_LIMIT}\n')
     pass
 
+
+if __name__ == '__main__':
+
 # Проверка на тестовых данных
 
 vehicle1 = Sedan('Fedos', 'Toyota Mark II', 500)        # Цвет будет выбран произвольно
