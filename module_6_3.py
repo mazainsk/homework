@@ -16,7 +16,7 @@ class Animal:
             self._cords['y'] += dy * self.speed
             self._cords['z'] += dz * self.speed
         else:
-            print('Слишком глубоко, я не могу плавать :(')
+            print('Слишком глубоко, я не могу нырять :(')
 
     def get_cords(self):
         print(f'X: {self._cords['x']}, Y: {self._cords['y']}, Z: {self._cords['z']}')
