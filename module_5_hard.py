@@ -2,11 +2,8 @@ import time
 
 class User:
     """
-    Класс пользователя для проекта "Свой YouTube" - задачи повышенной сложности 5-го модуля "Классы и объекты"
-    Атрибуты:
-        nickname(имя пользователя, строка)
-        password(принимает строку, хранит хэш-число)
-        age(возраст, число)
+    Класс пользователя c атрибутами:
+        nickname(имя пользователя, строка), password(принимает строку, хранит хэш-число), age(возраст, число)
     """
     def __init__(self, nickname: str, password: str, age: int):
         self.nickname = nickname
@@ -21,12 +18,9 @@ class User:
 
 class Video:
     """
-    Класс видеоролика для проекта "Свой YouTube" - задачи повышенной сложности 5-го модуля "Классы и объекты"
-    Атрибуты:
-        title(заголовок, строка)
-        duration(продолжительность, секунды)
-        time_now(секунда остановки (изначально 0))
-        adult_mode(ограничение по возрасту, bool (False по умолчанию))
+    Класс видеоролика с атрибутами:
+        title(заголовок, строка), duration(продолжительность, секунды), time_now(секунда остановки),
+        adult_mode(ограничение по возрасту, bool, False по умолчанию)
     """
     def __init__(self, title: str, duration: int, time_now: int = 0, adult_mode: bool = False):
         self.title = title
@@ -44,30 +38,14 @@ class Video:
 
 class UrTube:
     """
-    Класс платформы видеороликов для проекта "Свой YouTube" - задачи повышенной сложности 5-го модуля "Классы и объекты"
-    Атрибуты:
-        users(список объектов User)
-        videos(список объектов Video)
-        current_user(текущий пользователь, User)
-    Методы:
-    1.  log_in - принимает на вход аргументы nickname, password и пытается найти пользователя в users с такими же
-        логином и паролем; если такой пользователь существует, то current_user меняется на найденного;
-    2.  register - принимает аргументы nickname, password, age и добавляет пользователя в список, если пользователя
-        таким же nickname не существует; в противном случае выводит сообщение "Пользователь {nickname} уже существует";
-        после регистрации, вход выполняется автоматически;
-    3.  log_out - для сброса текущего пользователя на None;
-    4.  add - принимает неограниченное кол-во объектов класса Video и все добавляет в videos, если с таким же
-        названием видео ещё не существует; в противном случае ничего не происходит;
-    5.  get_videos - принимает поисковое слово и возвращает список названий всех видео, содержащих поисковое слово,
-        не учитывая регистр; если поисковое слово отсутствует - выводит полный перечень всех видео;
-    6.  watch_video - принимает название ролика и, если не находит точного совпадения, то ничего не воспроизводится;
-        если найдено - ведётся отчёт в консоль, на какой секунде ведётся просмотр (до окончания ролика),
-        затем текущее время просмотра данного видео сбрасывается.
+    Класс платформы видеороликов.
+        Атрибуты:
+            users(список объектов User), videos(список объектов Video), current_user(текущий пользователь, объект User)
+        Методы:
+            log_in(меняет current_user), register(добавляет пользователя в users), log_out, add(добавляет видео в
+            videos), get_videos(поиск видео по названию, вывод перечня), watch_video(просмотр ролика)
     """
     def __init__(self):
-        # from typing import List
-        # self.users: List[User] = []
-        # self.videos : List[Video] = []
         self.users = []
         self.videos = []
         self.current_user = None
@@ -80,25 +58,23 @@ class UrTube:
                 'совпадени': ['й', 'е', 'я', 'я', 'я', 'й', 'й', 'й', 'й', 'й']}
 
     def register(self, nickname: str, password: str, age: int):
-        for user in self.users: # не нужно искать полного совпадения User, только одинаковые имена, поэтому сравнивать
-            if user.nickname == nickname:   # надо не объекты целиком, а только атрибут со значением переменной
-                print(f"Пользователь {nickname} уже существует!")
-                break
-        else:
-            self.current_user = User(nickname, password, age)
-            self.users.append(self.current_user)
+        if any(map(lambda user: user.nickname == nickname, self.users)):
+            print(f"Пользователь {nickname} уже существует!")
+        else:                                           # создать нового пользователя, если nickname не найден
+            self.users.append(User(nickname, password, age))
             self.log_in(nickname, password)             # автоматический вход зарегистрированного пользователя
 
     def log_out(self):
         self.current_user = None
 
     def log_in(self, nickname: str, password: str):
-        user = User(nickname, password, 0)  # для входа по имени/паролю возраст не важен, т.к. не может быть двух
-                # одинаковых пользователей с разным возрастом (метод register не допускает дублирование имён)
-        if user in self.users:  # поиск по совпадению хэша от имени/пароля, см. перегрузку __eq__() для User
-            self.current_user = self.users[self.users.index(user)]  # надо именно вытащить найденный User по его
-                                                                    # индексу в users, т.к. нужен правильный age
-        else:   # если имя и/или пароль не совпадают
+        # список результата проверки имени и пароля во всех self.users (совпадение одновременно и имени и пароля):
+        check_users = list(map(lambda user: (user.nickname == nickname) and
+                                            (user.password == hash((nickname, password))), self.users))
+        if any(check_users):
+            self.current_user = self.users[check_users.index(True)] # вытащить User-а по индексу элемента со значением
+                                # True в списке check_users
+        else:       # если же имя и/или пароль не совпадают
             print('Пользователь с таким именем/паролем не найден')
 
     def add(self, *args: Video):
@@ -108,7 +84,7 @@ class UrTube:
 
     def get_videos(self, *search_str: str):
         count = 0
-        if bool(search_str):        # аргумент присутствует
+        if search_str:        # аргумент присутствует
             print(f'В результате поиска строки "{search_str[0]}" найдено:')
             search_str = search_str[0].lower()
             for video in self.videos:
