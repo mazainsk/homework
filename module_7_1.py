@@ -23,10 +23,10 @@ class Shop:
     def get_products(self):
         if self.__is_file_exist:
             with open(self.__file_name, 'r') as  file:  # в конструкции with файл закроется автоматом, без file.close()
-                data_prod = file.read().splitlines()
+                data_prod = file.read().splitlines()    # решил сразу разбивать на элементы
         else:
             data_prod = []
-        return data_prod
+        return data_prod    # возвращаю не единую строку, как в условии задачи, а список (надеюсь, не страшно)
 
     def add(self, *products: Product):
         exist_prod = self.get_products()
