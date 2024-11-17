@@ -38,6 +38,7 @@ class Shop:
                 name = new_prod.split(', ')[0]      # 0 - name, 1 - weight, 2 - category
                 for ex_prod in exist_prod:
                     if ex_prod.startswith(name):
+                        print(f'Продукт {name} уже есть в магазине')
                         tmp_list.remove(new_prod)   # убрать элемент целиком
                         break
             if tmp_list:
