@@ -10,7 +10,7 @@ class Product:
         self.category = category
 
     def __str__(self):
-        return ', '.join([self.name, str(self.weight), self.category])
+        return f'{self.name}, {self.weight}, {self.category}'
 
 class Shop:
     __file_name = 'products.txt'
@@ -29,30 +29,15 @@ class Shop:
         return data_prod    # возвращаю не единую строку, как в условии задачи, а список (надеюсь, не страшно)
 
     def add(self, *products: Product):
-        exist_prod = self.get_products()
-        new_products = [i.__str__() for i in products]
-        if exist_prod:      # какие-то данные были прочитаны из файла
-            # из new_products убрать те элементы, названия продуктов в которых есть в exist_prod
-            tmp_list = list(new_products)   # временная копия списка, в которой останутся лишь уникальные продукты
-            for new_prod in new_products:
-                name = new_prod.split(', ')[0]      # 0 - name, 1 - weight, 2 - category
-                for ex_prod in exist_prod:
-                    if ex_prod.startswith(name):
-                        print(f'Продукт {name} уже есть в магазине')
-                        tmp_list.remove(new_prod)   # убрать элемент целиком
-                        break
-            if tmp_list:
-                # из новых продуктов осталось что-то, чего нет в файле
-                result_products = tmp_list
+        existing_products = self.get_products()
+        # создается множество из уникальных названий
+        existing_names = {line.split(', ')[0] for line in existing_products}    # 0 - name, 1 - weight, 2 - category
+        file = open(self.__file_name, 'a')
+        for product in products:
+            if product.name in existing_names:
+                print(f"Продукт {product.name} уже есть в магазине")
             else:
-                # все названия продуктов уже есть в файле, запись не нужна
-                return
-        else:
-            # продуктов в файле нет вообще, нужно записать все
-            result_products = new_products
-        file = open(self.__file_name, 'a')  # добавление отсутствующих продуктов
-        for prod in result_products:
-            file.write(prod + '\n')
+                file.writelines(f'{product.name}, {product.weight}, {product.category}\n')
         self.__is_file_exist = True
         file.close()
 
