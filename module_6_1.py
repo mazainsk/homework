@@ -7,10 +7,24 @@ class Animal:
         self.fed = False    # не накормлен, т.е. голодный
 
     def __str__(self):      # как информация о себе
-        text = f'Имя: {self.name}, Статус: '
-        text += 'живой, ' if self.alive else 'мертвый, '
-        text += 'сытый' if self.fed else 'голодный'
+        text = f'{self.name} '
+        text += '(живой, ' if self.alive else '(мертвый, '
+        text += 'сытый)' if self.fed else 'голодный)'
         return text
+
+    def eat(self, food):
+        # Универсальный метод для наследников класса Animal
+        if not isinstance(food, Animal | Plant) or (isinstance(food, Plant) and not food.edible):
+            # Любое животное НЕ может есть еду, которая не относится к классам Animal, Plant или их наследникам,
+            # так же эта часть кода сработает для несъедобных растений:
+            print(f'{self.name} не стал есть {food}')
+            self.alive = False
+        elif isinstance(food, Plant) and food.edible:
+            # любое животное может есть съедобное растение
+            print(f'{self.name} съел {food}')
+            self.fed = True
+        # тут еда - это точно животное и надо сделать разное поведение для хищника и травоядного (надо дополнить метод
+        # в классах-потомках Animal)
 
 class Plant:
     def __init__(self, name: str):
@@ -18,31 +32,26 @@ class Plant:
         self.edible = False  # съедобность
 
     def __str__(self):      # как информация о себе
-        text = f'Имя: {self.name}, Статус: '
-        text += 'съедобный' if self.edible else 'не съедобный'
+        text = f'{self.name} ('
+        text += 'не ' if not self.edible else ''
+        text += 'съедобный)'
         return text
 
 class Mammal(Animal):
-    # Магический метод __init__ полностью определен в родительском классе, поэтому при определении дочерних классов
-    # он не нужен нигде, кроме Fruit (см.ниже)
-
-    def eat(self, food: Plant): # специально в параметре показываю, что "хорошая еда" должна быть класса Plant
-        if hasattr(food, 'edible') and food.edible: # задаю так, что травоядное ест только то, что съедобное
-            print(f'{self.name} съел {food.name}')
-            self.fed = True         # наелся
-        else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False      # гибнет от несъедобного растения, т.к. не насытился
+    def eat(self, food):
+        super().eat(food)
+        if self.alive and not self.fed: # если остался живым и голодным, значит еда - это другое животное
+            print(f'{self.name} не стал есть {food}')
+            self.alive = False
 
 class Predator(Animal):
-    def eat(self, food: Mammal):    # специально в параметре показываю, что "хорошая еда" должна быть класса Mammal
-        if hasattr(food, 'alive') and food.alive:   # задаю так, что хищник ест только то, что живое
-            print(f'{self.name} съел {food.name}')
-            self.fed = True         # наелся
-            food.alive = False      # жизнь объекта, который съели, прекратилась
-        else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False      # гибнет от несъедобного мёртвого травоядного животного, т.к. не насытился
+    def eat(self, food):
+        super().eat(food)
+        if self.alive and not self.fed: # если остался живым и голодным, значит еда - это другое животное
+            # в качестве еды он съест любое другое животное, даже падаль
+            print(f'{self.name} съел {food}')
+            self.fed = True
+            food.alive = False      # жизнь животного, которого съели, прекратилась
 
 class Flower(Plant):
     pass        # просто заглушка, потому что все атрибуты и методы определены в родительском классе
@@ -53,6 +62,8 @@ class Fruit(Plant):
         self.edible = True          # переопределить съедобность, унаследованную от родительского класса
 
 
+
+
 if __name__ == '__main__':
 
     # Проверка на тестовых данных
@@ -60,15 +71,17 @@ if __name__ == '__main__':
     a2 = Mammal('Хатико')
     p1 = Flower('Цветик семицветик')
     p2 = Fruit('Заводной апельсин')
+    a3 = Predator('Другой хищник')
+    a4 = Mammal('Другой травоядный')
     print('Перечень всех объектов:')
     print(a1, a2, p1, p2, sep='\n', end='\n'*2)
     print('Прямое обращение к атрибутам:')
     print(f'Значение атрибута alive для {a1.name}:', a1.alive)
     print(f'Значение атрибута fed для {a2.name}:',a2.fed)
     print()
-    a1.eat(p1)      # PyCharm предупреждает, что хищник ожидает травоядного, а его пытаются накормить цветком
+    a1.eat(p1)
+    print(a1)
     a2.eat(p2)
-    print(f'Значение атрибута alive для {a1.name}:', a1.alive)
-    print(f'Значение атрибута fed для {a2.name}:',a2.fed)
+    print(a2)
 
     # Что произошло: Хищник попытался съесть цветок и погиб, млекопитающее съело фрукт и насытилось.
