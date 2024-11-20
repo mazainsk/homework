@@ -32,14 +32,13 @@ class Shop:
         existing_products = self.get_products()
         # создается множество из уникальных названий
         existing_names = {line.split(', ')[0] for line in existing_products}    # 0 - name, 1 - weight, 2 - category
-        file = open(self.__file_name, 'a')
-        for product in products:
-            if product.name in existing_names:
-                print(f"Продукт {product.name} уже есть в магазине")
-            else:
-                file.writelines(f'{product.name}, {product.weight}, {product.category}\n')
-        self.__is_file_exist = True
-        file.close()
+        with open(self.__file_name, 'a') as file:
+            for product in products:
+                if product.name in existing_names:
+                    print(f"Продукт {product.name} уже есть в магазине")
+                else:
+                    file.writelines(f'{product.name}, {product.weight}, {product.category}\n')
+            self.__is_file_exist = True
 
 if __name__ == '__main__':
 
