@@ -6,7 +6,7 @@ def custom_write(file_name: str, strings: list[str]):
         for i, string in enumerate(strings, 1):
             string_begining = file.tell()
             file.write(string + '\n')
-            # strings_positions.update({(i, string_begining): string})  # очень избыточно!!
+            # strings_positions.update({(i, string_begining): string})  # очень избыточно!! см.ниже
             strings_positions[(i, string_begining)] = string    # при обращении по отсутствующему ключу в словарь
             # автоматически добавится этот новый ключ и мы сразу присвоим ключу значение
     return strings_positions
