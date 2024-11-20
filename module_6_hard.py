@@ -32,11 +32,6 @@ class Figure:
         print(f'Радиус: {self.__radius}') if hasattr(self, '__radius') else ''
         print()
 
-
-    # def find_method(self, method_name):
-    #     methods = [m[0] for m in inspect.getmembers(self, predicate=inspect.ismethod)]
-    #     return method_name in methods
-
     def get_color(self):
         return self.__color
 
