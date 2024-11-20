@@ -1,6 +1,5 @@
 # Дополнительное практическое задание по модулю 6 "Наследование классов"
 
-import inspect
 from math import pi
 
 class Figure:
@@ -23,20 +22,20 @@ class Figure:
     def __eq__(self, other):
         return (self.__class__.__name__ == other.__class__.__name__) and (self.__len__() == other.__len__())
 
-    def inspect(self):
+    def print_info(self):
         print(f'Длина окружности: ' if self.__class__.__name__ == 'Circle' else '', end='')
         print(f'Периметр: ' if self.__class__.__name__ == 'Triangle' else '', end='')
         print(f'Сумма длин рёбер: ' if self.__class__.__name__ == 'Cube' else '', end='')
         print(self.__len__())
-        print(f'Площадь: {self.get_square()}') if self.find_method('get_square') else ''
-        print(f'Объём: {self.get_volume()}') if self.find_method('get_volume') else ''
-        print(f'Радиус: {self.__radius()}') if self.find_method('__radius') else ''
+        print(f'Площадь: {self.get_square()}') if hasattr(self, 'get_square') else ''
+        print(f'Объём: {self.get_volume()}') if hasattr(self, 'get_volume') else ''
+        print(f'Радиус: {self.__radius}') if hasattr(self, '__radius') else ''
         print()
 
 
-    def find_method(self, method_name):
-        methods = [m[0] for m in inspect.getmembers(self, predicate=inspect.ismethod)]
-        return method_name in methods
+    # def find_method(self, method_name):
+    #     methods = [m[0] for m in inspect.getmembers(self, predicate=inspect.ismethod)]
+    #     return method_name in methods
 
     def get_color(self):
         return self.__color
@@ -69,11 +68,12 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def  __radius(self):
-        return super().get_sides()[0] / (2 * pi)
+    def __init__(self, color, side):
+        super().__init__(color, side)
+        self.__radius = super().get_sides()[0] / (2 * pi)
 
     def get_square(self):
-        return pi * self.__radius() ** 2
+        return pi * self.__radius ** 2
 
 class Triangle(Figure):
     sides_count = 3
@@ -96,19 +96,19 @@ if __name__ == '__main__':
     # Проверка на корректность задания длин сторон при создании объектов
     circle1 = Circle((200, 200, 100), 10)
     print(circle1)
-    circle1.inspect()
+    circle1.print_info()
     triangle1 = Triangle((255, 0, 255), 2, 3, 4)
     print(triangle1)
-    triangle1.inspect()
+    triangle1.print_info()
     triangle1 = Triangle((255, 0, 255), 2, 3, 4, 7) # лишняя сторона -> создастся с 1-1-1
     print(triangle1)
-    triangle1.inspect()
+    triangle1.print_info()
     triangle1 = Triangle((255, 0, 255), 2, 3, -1) # отрицательная длина стороны -> создастся с 1-1-1
     print(triangle1)
-    triangle1.inspect()
+    triangle1.print_info()
     cube1 = Cube((222, 35, 130), 6)
     print(cube1)
-    cube1.inspect()
+    cube1.print_info()
 
     # Проверка на изменение цветов:
     circle1.set_color(55, 66, 77)       # изменится
