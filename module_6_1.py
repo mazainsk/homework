@@ -58,7 +58,7 @@ class Flower(Plant):
 
 class Fruit(Plant):
     def __init__(self, name: str):
-        super().__init__(name)      # по условию задачи имя определяется через родительский класс
+        super().__init__(name)
         self.edible = True          # переопределить атрибут, унаследованный от родительского класса
 
 
