@@ -2,7 +2,7 @@
 import re
 
 class WordsFinder:
-    _CHRS = "[,.=!?:;]|' - '"
+    _CHRS = "[,.=!?:;]|' - '"       # регулярное выражение для поиска и удаления
 
     def __init__(self, *file_names):
         self.file_names = [name for name in file_names]
@@ -34,7 +34,7 @@ class WordsFinder:
             finds[k] = v.count(word)
         return finds
 
-
+# Проверка на тестовых данных
 finder2 = WordsFinder('test_file.txt')
 print(finder2.get_all_words()) # Все слова
 print(finder2.find('TEXT')) # 3 слово по счёту
