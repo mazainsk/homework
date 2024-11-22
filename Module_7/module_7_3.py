@@ -1,10 +1,8 @@
 # Домашнее задание по теме "Оператор "with"
 import re
 
-
 class WordsFinder:
     _CHRS = "[,.=!?:;]|' - '"       # регулярное выражение для поиска и удаления
-
 
     def __init__(self, *file_names):
         self.file_names = (name for name in file_names)
