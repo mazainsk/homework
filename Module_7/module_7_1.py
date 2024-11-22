@@ -43,6 +43,7 @@ class Shop:
                     file.writelines(f'{product.name}, {product.weight}, {product.category}\n')
             self.__is_file_exist = True
 
+
 if __name__ == '__main__':
 
     # Проверка на тестовых данных, файл 'products.txt' нужно предварительно удалить!!
