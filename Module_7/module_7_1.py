@@ -2,6 +2,7 @@
 
 import os
 
+
 class Product:
 
     def __init__(self, name: str, weight: float, category: str):
@@ -12,7 +13,9 @@ class Product:
     def __str__(self):
         return f'{self.name}, {self.weight}, {self.category}'
 
+
 class Shop:
+
     __file_name = 'products.txt'
     __is_file_exist = False
 
