@@ -12,10 +12,10 @@ def add_everything_up(*args):
     def args_remap(*args):
         nonlocal values
         for arg in args:
-            if isinstance(arg, (list, tuple)):
-                args_remap(*arg)
-            elif isinstance(arg, (int, float, bool, str)):
+            if isinstance(arg, (int, float, bool, str)):
                 values.append(arg)
+            elif isinstance(arg, (list, tuple)):
+                args_remap(*arg)
 
     args_remap(*args)
     try:
