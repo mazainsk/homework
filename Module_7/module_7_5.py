@@ -29,6 +29,6 @@ while True:
         except PermissionError:
             # На Win10 исключение возникнет, например, при попытке сканирования корня диска 'С'
             if mb.askretrycancel("Отказано в доступе", "Повторить выбор папки?"): continue
-        finally: break
+        break
     else:
         if mb.askyesno("Не выбрано", "Хотите выйти?"): break
