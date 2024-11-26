@@ -23,7 +23,7 @@ def get_file_paths_scandir(start_dir):
 while True:
     directory = fd.askdirectory(title="Выбор папки для сканирования содержимого", initialdir="/")
     if directory:
-        # Если действительно что-то выбрано (даже недопустимый путь)
+        # Если действительно что-то выбрано (даже недопустимый путь):
         try:
             get_file_paths_scandir(directory)
         except PermissionError:
