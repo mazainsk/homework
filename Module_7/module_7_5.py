@@ -1,10 +1,9 @@
 # Домашнее задание по теме "Файлы в операционной системе"
+
 import os
 import time
-
-# Путь к стартовому каталогу ('.' - текущий):
-# directory = '.'
-directory = r'C:\PythonProjects\homework'
+from tkinter import filedialog as fd
+from tkinter import messagebox as mb
 
 def get_file_paths_scandir(start_dir):
     # Использую наиболее быстрый метод, доступный с Python 3.5:
@@ -21,4 +20,15 @@ def get_file_paths_scandir(start_dir):
                 # if entry.is_dir(): - можно так, но это избыточно, потому что, если entry не файл, то - директория
                 get_file_paths_scandir(entry.path)  # рекурсивный вызов по подкаталогу
 
-get_file_paths_scandir(directory)
+while True:
+    directory = fd.askdirectory(title="Выбор папки для сканирования содержимого", initialdir="/")
+    if directory:
+        # Если действительно что-то выбрано (даже недопустимый путь)
+        try:
+            get_file_paths_scandir(directory)
+        except PermissionError:
+            # На Win10 исключение возникнет, например, при попытке сканирования корня диска 'С'
+            if mb.askretrycancel("Отказано в доступе", "Повторить выбор папки?"): continue
+        finally: break
+    else:
+        if mb.askyesno("Не выбрано", "Хотите выйти?"): break
