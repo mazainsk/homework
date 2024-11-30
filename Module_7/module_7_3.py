@@ -2,7 +2,8 @@
 import re
 
 class WordsFinder:
-    _CHRS = "[,.=!?:;]|' - '"       # регулярное выражение для поиска и удаления
+    _CHRS = "[,.=!?:;]|' - '"       # Регулярное выражение для поиска и удаления
+                # P.S.: Как альтернатива есть еще функция translate в связке со строковым методом maketrans
 
     def __init__(self, *file_names):
         self.file_names = (name for name in file_names)
