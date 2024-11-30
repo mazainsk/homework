@@ -16,7 +16,7 @@ def add_everything_up(*args):
                 values.append(arg)
             elif isinstance(arg, (list, tuple, set)):
                 args_remap(*arg)
-            elif isinstance(arg, dict):
+            elif isinstance(arg, dict):     # словари - в отдельной проверке, т.к. нужны значения, а не ключи
                 args_remap(*arg.values())
 
     args_remap(*args)
