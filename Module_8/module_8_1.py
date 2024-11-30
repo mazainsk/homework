@@ -14,8 +14,10 @@ def add_everything_up(*args):
         for arg in args:
             if isinstance(arg, (int, float, bool, str)):
                 values.append(arg)
-            elif isinstance(arg, (list, tuple)):
+            elif isinstance(arg, (list, tuple, set)):
                 args_remap(*arg)
+            elif isinstance(arg, dict):
+                args_remap(*arg.values())
 
     args_remap(*args)
     try:
@@ -31,5 +33,5 @@ print(add_everything_up(123.456, 'строка'))
 print(add_everything_up('яблоко', 4215, '_против_груши', 48.2))
 print(add_everything_up(123.456, 7))
 print(add_everything_up(5, False, True))
-print(add_everything_up(64.8, [1, 2, 3, ('?', {17, '0'}), 90], False))
+print(add_everything_up(64.8, [1, 2, 3, ('?', {'a': 17, 'b': ('0', '_1_', 0)}), 90], False))
 print(add_everything_up('1', {'abc', None}, '?'))
