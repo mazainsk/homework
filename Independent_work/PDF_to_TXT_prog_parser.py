@@ -1,5 +1,6 @@
 import fitz     # Если нужный модуль отсутствует, нужно установить в терминале: pip install PyMuPDF
 import os
+
 from tkinter import filedialog as fd
 from tkinter import messagebox as mb
 
@@ -45,7 +46,7 @@ while True:
     file = fd.askopenfilename(title="Открыть файл для сканирования содержимого",
                               initialfile=pdf_file,
                               filetypes=(('', pdf_file),),
-                              initialdir=r'D:\!_Docs\Учеба\Python')
+                              initialdir='/')
     if file != '': break
     if mb.askyesno("Не выбрано", "Хотите выйти?"): break
 
