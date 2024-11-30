@@ -2,6 +2,7 @@
 
 from math import pi
 
+
 class Figure:
     sides_count: int = 0
 
