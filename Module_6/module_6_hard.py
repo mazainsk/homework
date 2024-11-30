@@ -60,6 +60,7 @@ class Figure:
             return ((len(sides) == self.sides_count) and
                     (all(map(lambda x: isinstance(x, int) and (x > 0), sides))))
 
+
 class Circle(Figure):
     sides_count = 1
 
@@ -83,6 +84,7 @@ class Cube(Figure):
 
     def get_volume(self):
         return super().get_sides()[0] ** 3
+
 
 if __name__ == '__main__':
 
