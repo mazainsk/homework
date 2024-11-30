@@ -10,7 +10,7 @@ def add_everything_up(*args):
     # Вложенная функция рекурсивного перестроения входных аргументов в новый ("плоский") список
     # с исключением из него элементов не подходящих типов
     def args_remap(*args):
-        nonlocal values
+        nonlocal values     # можно не указывать, т.к. переменная не переопределяется, но так читабельнее
         for arg in args:
             if isinstance(arg, (int, float, bool, str)):
                 values.append(arg)
