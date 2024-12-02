@@ -5,7 +5,7 @@ grades = [[5, 3, 3, 5, 4], [2, 2, 2, 3], [4, 5, 5, 2], [4, 4, 3], [5, 5, 5, 4, 5
 students = {'Johnny', 'Bilbo', 'Steve', 'Khendrik', 'Aaron'}
 
 # ЗАДАЧА: получить словарь, где ключом будет имя ученика, а значением - его средний балл
-# РЕШЕНИЕ:
+# РЕШЕНИЕ 1:
 
 # получаю сортированный список имён учеников
 students = sorted(students)
@@ -13,9 +13,13 @@ students = sorted(students)
 # модифицирую список, вычисляя средний балл из списка оценок каждого ученика -
 # забегая в обучении вперёд, использую лямбда-функцию при создании объекта-итератора (map) и затем -
 # функцию преобразования в список (list)
-grades = list(map(lambda x: sum(x)/len(x), grades))
+grades_avg = list(map(lambda x: round(sum(x)/len(x), 2), grades))
 
 # объединяю два списка в требуемый словарь и вывожу в консоль
-my_dict = dict(zip(students, grades))
-print('Результирующий словарь, где ключом каждого элемента является имя ученика, а значением - его средний балл:\n',
-      my_dict)
+my_dict = dict(zip(students, grades_avg))
+print('Результирующий словарь, где ключом каждого элемента является имя ученика, а значением - его средний балл:')
+print(my_dict)
+
+# РЕШЕНИЕ 2:
+my_dict = {name: round(sum(grade)/len(grade), 2) for name, grade in zip(sorted(students), grades)}
+print(my_dict)
