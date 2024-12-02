@@ -8,14 +8,15 @@ def apply_all_func(int_list, *functions):
     # Вариант 2: если среди элементов списка встречается строка, то пытаться преобразовать ее в число
     error_message = 'Недопустимый элемент в списке'
     for i, value in enumerate(int_list):
-        if isinstance(value, (int, float)): continue
-        if not isinstance(value, str): return error_message
+        if isinstance(value, (int, float)):
+            continue
+        if not isinstance(value, str):
+            return error_message
         else:
-            try: int_list[i] = int(value)
+            try:
+                int_list[i] = float(value)
             except ValueError:
-                try: int_list[i] = float(value)
-                except ValueError:
-                    return error_message
+                return error_message
     results = {}
     for func in functions:
         results[func.__name__] = func(int_list)
