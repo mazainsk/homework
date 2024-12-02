@@ -15,14 +15,13 @@ def calculate_average(numbers):
     try:
         summ = personal_sum(numbers)
         result = summ[0] / (len(numbers) - summ[1])     # В знаменателе - разница между общим кол-вом принятых
-                                            # аргументов и количеством тех из них, что оказались некорректными
+        return result                               # аргументов и количеством тех из них, что оказались некорректными
     except ZeroDivisionError:
         return 0
     except TypeError:
         print('В numbers записан некорректный тип данных')
         return None
-    else:
-        return result
+
 
 # Проверка на тестовых данных:
 print(f'Результат 1: {calculate_average("1, 2, 3")}')  # Строка перебирается, но каждый символ - строковый тип
