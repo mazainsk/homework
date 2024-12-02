@@ -12,7 +12,7 @@ second_result = [(i, j) for i in first_strings for j in second_strings if len(i)
 
 # Словарь, где пара ключ-значение это строка-длина строки. Значения строк - из объединённых вместе списков
 # first_strings и second_strings. Условие записи пары в словарь - чётная длина строки.
-third_result = {i: len(i) for i in first_strings + second_strings if len(i) % 2 == 0}
+third_result = {i: len(i) for i in first_strings + second_strings if not len(i) % 2}
 
 print(first_result)
 print(second_result)
