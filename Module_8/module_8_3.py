@@ -1,8 +1,6 @@
 # Домашнее задание по теме "Создание исключений"
 
 class Car:
-    # __vin: int = 0
-    # __numbers: str = ''
 
     def __init__(self, model, vin, num):
         self.model = model
@@ -31,6 +29,7 @@ class Car:
 class IncorrectVinNumber(Exception):
 
     def __init__(self, vin_num, exc_type):
+        super().__init__()
         if exc_type == 1:
             self.message = f'Некорректный тип данных для vin номера "{vin_num}"'
         elif exc_type == 2:
@@ -40,6 +39,7 @@ class IncorrectVinNumber(Exception):
 class IncorrectCarNumbers(Exception):
 
     def __init__(self, num, exc_type):
+        super().__init__()
         if exc_type == 1:
             self.message = f'Некорректный тип данных для номеров "{num}"'
         elif exc_type == 2:
