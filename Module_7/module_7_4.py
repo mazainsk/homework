@@ -19,12 +19,17 @@ def suffix(word: str, num):
     # PS: если функцию использовать как самодостаточную во внешнем модуле, то переменную words лучше заменить на
     # константу WORDS или _WORDS, но тут пусть будет так.
     words = {'участник': ['', 'а', 'ов'], 'задач': ['у', 'и', '']}  # Корни и окончания
-    if word not in words or not isinstance(num, (float, int)): return word
-    if isinstance(num, float): return word + words[word][1]
+    if word not in words or not isinstance(num, (float, int)):
+        return word
+    if isinstance(num, float):
+        return word + words[word][1]
     num = int(str(num)[-1])
-    if num == 1: return word + words[word][0]
-    elif 2 <= num <= 4: return word + words[word][1]
-    else: return word + words[word][2]
+    if num == 1:
+        return word + words[word][0]
+    elif 2 <= num <= 4:
+        return word + words[word][1]
+    else:
+        return word + words[word][2]
 
 # Использование %:
 print('В команде "%s" %d %s' % (team1_name, team1_num, suffix('участник', team1_num)))
