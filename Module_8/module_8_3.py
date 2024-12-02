@@ -29,7 +29,8 @@ class Car:
 class IncorrectVinNumber(Exception):
 
     def __init__(self, vin_num, exc_type):
-        super().__init__()
+        super().__init__()  # В пользовательских классах исключений рекомендуется вызывать родительский init через
+                            # super, чтобы подгрузились дефолтные атрибуты
         if exc_type == 1:
             self.message = f'Некорректный тип данных для vin номера "{vin_num}"'
         elif exc_type == 2:
