@@ -10,14 +10,14 @@ def add_everything_up(*args):
     # Вложенная функция рекурсивного перестроения входных аргументов в новый ("плоский") список
     # с исключением из него элементов не подходящих типов
     def args_remap(*args):
-        nonlocal values     # можно не указывать, т.к. переменная не переопределяется, но так читабельнее
+        nonlocal values     # можно не указывать, т.к. переменные не переопределяются, но так читабельнее
         for arg in args:
             if isinstance(arg, (int, float, bool, str)):
                 values.append(arg)
             elif isinstance(arg, (list, tuple, set)):
                 args_remap(*arg)
-            elif isinstance(arg, dict):     # словари - в отдельной проверке, т.к. нужны значения, а не ключи
-                args_remap(*arg.values())
+            elif isinstance(arg, dict):     # словари - в отдельной проверке, т.к. складываю и ключи и значения
+                args_remap(*arg.items())
 
     args_remap(*args)
     try:
