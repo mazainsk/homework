@@ -12,10 +12,11 @@ second_list = ['Строка', 'Урбан', 'Компьютер']
 
 # Решение:
 first_result = (abs(len(a) - len(b)) for a, b in zip(first_list, second_list) if len(a) != len(b))
-second_result = (len(first_list[i]) <= len(second_list[i]) for i in range(min(len(first_list), len(second_list))))
+second_result = (len(first_list[i]) == len(second_list[i]) for i in range(min(len(first_list), len(second_list))))
 
 print(list(first_result))
 print(list(second_result))
 
-# Оператор сравнения для 2го результата выбрал для соответствия результата тому, что выводится в консоль в задании,
-# потому что в условиях не сказано, как именно сравнивать элементы списков.
+# 2й вариант решения первой задачи - через моржовый оператор
+first_result = (a for x, y in zip(first_list, second_list) if (a := abs(len(x) - len(y))))
+print(list(first_result))
