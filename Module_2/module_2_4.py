@@ -21,7 +21,7 @@ for i in numbers:
         not_primes.append(i)
 print('Результаты для варианта решения № 1:')
 print('Primes:', primes)
-print('Not Primes:', not_primes, '\n')
+print('Not Primes:', not_primes)
 
 # Вариант 2, без использования переменной-флага 'is_prime'
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
@@ -40,5 +40,17 @@ for i in numbers:
         else:                   # оператор ELSE для цикла FOR определяет код, выполняемый для случая штатного
             primes.append(i)    # окончания цикла (в случае досрочного выхода по BREAK этот код выполняться не будет)
 print('Результаты для варианта решения № 2:')
+print('Primes:', primes)
+print('Not Primes:', not_primes)
+
+# Вариант 3
+is_prime = lambda n: n > 1 and all(n % i != 0 for i in range(2, int(n**0.5) + 1))
+# Функция проверки, что число n больше 1 и не делится нацело на какие-либо числа от 2 до квадратного корня из n
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+primes = []
+not_primes = []
+# разбор списковым включением
+[primes.append(n) if is_prime(n) else not_primes.append(n) for n in numbers if n > 1]
+print('Результаты для варианта решения № 3:')
 print('Primes:', primes)
 print('Not Primes:', not_primes)
