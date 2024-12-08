@@ -3,7 +3,7 @@
 import functools
 
 def is_prime(func):
-    @functools.wraps(func)
+    @functools.wraps(func)    # Встроенный декоратор для переноса метаданных из декорируемой функции
     def wrapper(*args):
         check_func = lambda n: n > 1 and all(n % i != 0 for i in range(2, int(n ** 0.5) + 1))
         text = f'{'Простое' if check_func(func(*args)) else 'Составное'}'
@@ -23,7 +23,7 @@ def is_even(func):
     return wrapper
 
 # Применение декоратора is_prime (и опционально - is_even) для обертывания функции sum_three
-#@is_even
+@is_even
 @is_prime
 def sum_three(num_1, num_2, num_3):
     """Возвращает сумму трёх чисел"""
@@ -36,3 +36,6 @@ print(*res, sep='\n')
 print()
 res = sum_three(108, 4, 14)   # 126 - число четное, знаков 3, составное
 print(*res, sep='\n')
+print()
+print(sum_three.__doc__)    # Для проверки. Без использования декоратора functools.wraps метаданные функции sum_three
+                            # будут скрыты замыканием wrapper (тут будет None)
