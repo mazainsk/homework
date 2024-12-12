@@ -13,7 +13,7 @@ def write_words(word_count: int, file_name: str, pbar):
             time.sleep(0.1)
 
 # Данные (количество слов) для всех примеров:
-data_ = (10, 30, 200, 100)
+data_ = (10, 30, 20, 10)
 
 # Последовательный вызов функции для всех входных данных:
 time_ = time.time()
@@ -38,7 +38,7 @@ with trange(sum(data_), postfix=f'Обработка...', bar_format='{l_bar}{ba
         t = threading.Thread(target=write_words, args=(v, f'example{i+5}.txt', pbar))
         threads.append(t)
         t.start()
-    for i, t in enumerate(threads):
+    for t in threads:
         t.join()
     pbar.set_postfix_str('Готово')
 time_ = time.time() - time_
