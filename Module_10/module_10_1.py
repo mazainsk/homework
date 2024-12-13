@@ -1,7 +1,7 @@
 # Домашнее задание по теме "Создание потоков"
 
 import time
-import threading
+from threading import Thread
 from tqdm import trange
 
 
@@ -13,7 +13,7 @@ def write_words(word_count: int, file_name: str, pbar):
             time.sleep(0.1)
 
 # Данные (количество слов) для всех примеров:
-data_ = (10, 30, 20, 10)
+data_ = (10, 30, 200, 100)
 
 # Последовательный вызов функции для всех входных данных:
 time_ = time.time()
@@ -35,7 +35,7 @@ threads = []
 time.sleep(0.1)
 with trange(sum(data_), postfix=f'Обработка...', bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt}{postfix}') as pbar:
     for i, v in enumerate(data_):
-        t = threading.Thread(target=write_words, args=(v, f'example{i+5}.txt', pbar))
+        t = Thread(target=write_words, args=(v, f'example{i+5}.txt', pbar))
         threads.append(t)
         t.start()
     for t in threads:
