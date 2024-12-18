@@ -1,4 +1,5 @@
 # Домашнее задание по теме "Блокировки и обработка ошибок"
+
 import random
 import time
 import threading
@@ -34,8 +35,8 @@ class Bank():
 
 
 bk = Bank()
-# Т.к. методы Bank.deposit и Bank.take принимают self, в потоки в качестве аргумента нужно передать сам объект bk
-# класса Bank
+# Т.к. методы Bank.deposit и Bank.take принимают self,
+# в потоки в качестве аргумента нужно передать сам объект bk класса Bank
 th1 = threading.Thread(target=Bank.deposit, args=(bk,))
 th2 = threading.Thread(target=Bank.take, args=(bk,))
 th1.start()
