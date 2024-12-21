@@ -12,23 +12,23 @@ class Bank:
     _lock = threading.Lock()    # Объект-замок для блокировки потоков
     _max_operations: int = 100  # Максимальное количество успешных транзакций, отдельно для каждого вида
                                     # операций (пополнения, снятия)
-    _pause: float = 0.05        # значение задержки в секундах для имитации времени выполнения операций
+    _pause: float = 0.01        # значение задержки в секундах для имитации времени выполнения операций
 
     # Метод совершает 100 транзакций пополнения средств
     def deposit(self):
-        for deposit_count in range(self._max_operations):
+        for _ in range(self._max_operations):
             with self._lock:
                 increment = random.randint(50, 500)
                 self._balance += increment
-                print(f'Пополнение №{deposit_count + 1}: {increment}. Баланс: {self._balance}')
+                print(f'Пополнение: {increment}. Баланс: {self._balance}')
                 time.sleep(self._pause)
 
     # Метод совершает 100 транзакций снятия средств
     def take(self):
-        for take_count in range(self._max_operations):
+        for _ in range(self._max_operations):
             with self._lock:
                 decrement = random.randint(50, 500)
-                print(f'Запрос №{take_count + 1} на {decrement}')
+                print(f'Запрос на {decrement}')
                 if decrement > self._balance:
                     print('Запрос отклонён, недостаточно средств')
                 else:
