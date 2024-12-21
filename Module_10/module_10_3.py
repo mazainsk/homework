@@ -4,34 +4,39 @@ import random
 import time
 import threading
 
+from zope.interface.common.builtins import IFile
 
-class Bank():
-    balance: int = 0
-    lock = threading.Lock()
 
+class Bank:
+    """Класс для симуляции операций с банковским счетом, используя операции пополнения и снятия как отдельные потоки"""
+
+    _balance: int = 0           # Текущий баланс счета
+    _lock = threading.Lock()    # Объект-замок для блокировки потоков
+    _max_operations: int = 100  # Максимальное количество успешных транзакций, отдельно для каждого вида
+                                    # операций (пополнения, снятия)
+    _pause: float = 0.05        # значение задержки в секундах для имитации времени выполнения операций
+
+    # Метод совершает 100 транзакций пополнения средств
     def deposit(self):
-        # Совершает 100 транзакций пополнения средств
-        for i in range(100):
-            increment = random.randint(50, 500)
-            self.balance += increment
-            print(f'Пополнение №{i+1}: {increment}. Баланс: {self.balance}')
-            time.sleep(0.05)    # задержка - имитация скорости времени выполнения операции пополнения средств
-            if self.balance >= 500 and self.lock.locked():
-                self.lock.release()
+        for deposit_count in range(self._max_operations):
+            with self._lock:
+                increment = random.randint(50, 500)
+                self._balance += increment
+                print(f'Пополнение №{deposit_count + 1}: {increment}. Баланс: {self._balance}')
+                time.sleep(self._pause)
 
+    # Метод совершает 100 транзакций снятия средств
     def take(self):
-        # Совершает 100 транзакций снятия средств
-        for i in range(100):
-            increment = random.randint(50, 500)
-            print(f'Запрос №{i+1} на {increment}')
-            if increment <= self.balance:
-                self.balance -= increment
-                print(f'Снятие: {increment}. Баланс: {self.balance}')
-            else:
-                print('Запрос отклонён, недостаточно средств')
-                self.lock.acquire()
-            time.sleep(0.05)
-
+        for take_count in range(self._max_operations):
+            with self._lock:
+                decrement = random.randint(50, 500)
+                print(f'Запрос №{take_count + 1} на {decrement}')
+                if decrement > self._balance:
+                    print('Запрос отклонён, недостаточно средств')
+                else:
+                    self._balance -= decrement
+                    print(f'Снятие: {decrement}. Баланс: {self._balance}')
+                time.sleep(self._pause)
 
 
 bk = Bank()
@@ -43,4 +48,4 @@ th1.start()
 th2.start()
 th1.join()
 th2.join()
-print(f'Итоговый баланс: {bk.balance}')
+print(f'Итоговый баланс: {bk._balance}')
