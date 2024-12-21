@@ -4,8 +4,6 @@ import random
 import time
 import threading
 
-from zope.interface.common.builtins import IFile
-
 
 class Bank:
     """Класс для симуляции операций с банковским счетом, используя операции пополнения и снятия как отдельные потоки"""
