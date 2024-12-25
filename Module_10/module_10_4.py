@@ -9,10 +9,10 @@ from random import randint
 
 class Table:
     """Стол, хранит информацию о находящемся за ним гостем (Guest)"""
-    guest = None
 
     def __init__(self, number: int):
         self.number = number
+        self.guest = None  # У каждого объекта "стол" свой гость, поэтому сделал атрибутом объекта, а не класса
 
 
 class Guest(Thread):
@@ -31,12 +31,12 @@ class Cafe:
        обслуживания (discuss_guests)"""
 
     def __init__(self, *args: Table):
-        self.tables = [arg for arg in args]
+        self.tables = args
         self.queue = Queue()
         self.guests = None
 
     def guest_arrival(self, *args: Guest):
-        self.guests = [arg for arg in args]
+        self.guests = args
         for guest in self.guests:
             for table in self.tables:
                 if table.guest is None:
@@ -51,14 +51,11 @@ class Cafe:
     def discuss_guests(self):
         while not self.queue.empty() or any([bool(table.guest) for table in self.tables]):
             for table in self.tables:
-                if not (table.guest is None):
-                    if table.guest.is_alive():
-                        continue
-                    else:
-                        print(f'{table.guest.name} покушал(-а) и ушёл(ушла)')
-                        table.guest = None
-                        print(f'Стол номер {table.number} свободен')
-                if not self.queue.empty():
+                if table.guest and not table.guest.is_alive():
+                    print(f'{table.guest.name} покушал(-а) и ушёл(ушла)')
+                    table.guest = None
+                    print(f'Стол номер {table.number} свободен')
+                if table.guest is None and not self.queue.empty():
                     table.guest = self.queue.get()
                     print(f'{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}')
                     table.guest.start()
