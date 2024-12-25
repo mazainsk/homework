@@ -35,7 +35,7 @@ class Bank:
                 print('Запрос отклонён, недостаточно средств')
                 time.sleep(self._pause)
                 if not self._deposit_is_finished:  # Устанавливать блокировку можно только, если депозиты
-                    self._lock.acquire()            # не закончились, иначе это приведет к deadlock
+                    self._lock.acquire()           # не закончились, иначе это приведет к deadlock
             else:
                 self._balance -= decrement
                 print(f'Снятие: {decrement}. Баланс: {self._balance}')
