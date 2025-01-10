@@ -1,9 +1,8 @@
 # Домашнее задание по теме "Простые юнит-тесты"
 
-
 import unittest as ut
-import test_12_1 as test    # Проверяемый код для модуля test_12_1.py взят отсюда:
-                            # https://github.com/yanchuki/HumanMoveTest/blob/master/runner.py
+import test_12_1 as test
+
 
 class RunnerTest (ut.TestCase):
 

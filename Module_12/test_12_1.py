@@ -1,3 +1,7 @@
+# Original code from GitHub:
+# https://github.com/yanchuki/HumanMoveTest/blob/master/runner.py
+
+
 class Runner:
     def __init__(self, name):
         self.name = name
