@@ -1,10 +1,6 @@
 # Original code from GitHub:
 # https://github.com/yanchuki/HumanMoveTest/blob/master/rt_with_exceptions.py
 
-import logging
-
-# logger = logging.getLogger(__name__)
-
 
 class Runner:
     def __init__(self, name, speed=5):
@@ -54,13 +50,3 @@ class Tournament:
                     self.participants.remove(participant)
 
         return finishers
-
-
-# first = Runner('Вося', 10)
-# second = Runner('Илья', 5)
-# # third = Runner('Арсен', 10)
-#
-# t = Tournament(101, first, second)
-# print(t.start())
-
-
