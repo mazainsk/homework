@@ -6,6 +6,8 @@ from test_12_2 import Runner, Tournament
 
 
 class TournamentTest(ut.TestCase):
+    # is_frozen = True
+
     @classmethod
     def setUpClass(cls):
         cls.distance = 90
