@@ -4,6 +4,7 @@
 
 import asyncio
 
+
 strongman_data = {'Василий': 30, 'Балагур': 50, 'Чарли': 80}
 power_const = 90
 balls_max = 5
