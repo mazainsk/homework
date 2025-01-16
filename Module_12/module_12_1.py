@@ -5,9 +5,9 @@ import test_12_1 as test
 
 
 class RunnerTest(ut.TestCase):
-    is_frozen = False
-
-    @ut.skipIf(RunnerTest.is_frozen, 'Тесты в этом кейсе заморожены')
+    # is_frozen = False
+    #
+    # @ut.skipIf(RunnerTest.is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
         person = test.Runner('Вовка')
         for i in range(10):
