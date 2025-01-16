@@ -63,18 +63,18 @@ class Tournament:
             #     return finishers
 
 
-# Тест корректности расчета победителей для случая забега на короткую дистанцию:
-if __name__ == '__main__':
-
-    runners_data = {'Ник': 3, 'Андрей': 9, 'Усэйн': 10}
-    runners = []
-    for name_, speed_ in runners_data.items():
-        runners.append(Runner(name_, speed_))
-    print('Стартуют: ', runners_data, sep='\n')
-    finish_order = sorted(runners_data.items(), key=lambda item: item[1], reverse=True)  # list of tuples
-    finish_order = {i + 1: v[0] for i, v in enumerate(finish_order)}                     # dict
-    print('Ожидаемый порядок финиширования: ', finish_order, sep='\n')
-    results = Tournament(5, *runners).start()
-    print('Фактический финиш на дистанции 5: ', results, sep='\n')
-    results = Tournament(18, *runners).start()
-    print('Фактический финиш на дистанции 18: ', results, sep='\n')
+# Локальный тест корректности расчета победителей для случая забега на короткую дистанцию:
+# if __name__ == '__main__':
+#
+#     runners_data = {'Ник': 3, 'Андрей': 9, 'Усэйн': 10}
+#     runners = []
+#     for name_, speed_ in runners_data.items():
+#         runners.append(Runner(name_, speed_))
+#     print('Стартуют: ', runners_data, sep='\n')
+#     finish_order = sorted(runners_data.items(), key=lambda item: item[1], reverse=True)  # list of tuples
+#     finish_order = {i + 1: v[0] for i, v in enumerate(finish_order)}                     # dict
+#     print('Ожидаемый порядок финиширования: ', finish_order, sep='\n')
+#     results = Tournament(5, *runners).start()
+#     print('Фактический финиш на дистанции 5: ', results, sep='\n')
+#     results = Tournament(18, *runners).start()
+#     print('Фактический финиш на дистанции 18: ', results, sep='\n')
