@@ -5,7 +5,7 @@ import unittest as ut
 from test_12_2 import Runner, Tournament
 
 
-class TournamentTest (ut.TestCase):
+class TournamentTest(ut.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.distance = 90
