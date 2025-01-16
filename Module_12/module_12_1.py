@@ -4,7 +4,7 @@ import unittest as ut
 import test_12_1 as test
 
 
-class RunnerTest (ut.TestCase):
+class RunnerTest(ut.TestCase):
 
     def test_walk(self):
         person = test.Runner('Вовка')
